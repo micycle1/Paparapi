@@ -1,0 +1,89 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>micycle</groupId>
+	<artifactId>paparapi</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>Paparapi</name>
+	<description>Aparapi wrapper for Processing. Execute native Java code on the GPU.</description>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<release>8</release>
+					<source>14</source>
+					<target>14</target>
+					<compilerVersion>14</compilerVersion>
+					<compilerArgs>
+						<arg>-Xplugin:jabel</arg>
+					</compilerArgs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.3.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<doclint>none</doclint> <!--Prevent Javadoc incomplete errors -->
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.aparapi</groupId>
+			<artifactId>aparapi</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.micycle1</groupId>
+			<artifactId>processing3</artifactId>
+			<version>3.5.4</version>
+			<scope>provided</scope> <!-- don't package into uber jar -->
+			<optional>true</optional> <!-- user artifact should override when provided -->
+		</dependency>
+		<dependency>
+			<groupId>com.github.bsideup.jabel</groupId>
+			<artifactId>jabel-javac-plugin</artifactId>
+			<version>0.4.2</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+</project>
